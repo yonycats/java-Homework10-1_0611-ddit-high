@@ -154,7 +154,7 @@ public class BoardMain {
 //			String dateSel = year + "-" + month + "-" + day + " 00:00:00.000";
 //			DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 //			LocalDateTime dateTime = LocalDateTime.parse(dateSel, format);
-//	
+	
 //			BoardVO bv = new BoardVO();
 //			bv.setDate(dateTime);
 			
@@ -188,14 +188,14 @@ public class BoardMain {
 			// 작성자 검색
 
 			System.out.println("검색할 작성자를 입력해주세요.");
-			String writterSel = "%" + sc.nextLine() + "%";
+			String writterSel = sc.nextLine();
 			
 			BoardVO bv = new BoardVO();
 			bv.setWriter(writterSel);
 			
 			
 			try {
-				List<BoardVO> writerSearch = session.selectList("Board.writerSearch", bv);
+				List<BoardVO> writerSearch = session.selectList("Board.searchBoard", bv);
 				
 				System.out.println();
 				System.out.println("======= 목록 보기 (날짜순 정렬) =======");
@@ -223,14 +223,14 @@ public class BoardMain {
 			// 제목 검색
 			
 			System.out.println("검색할 제목을 입력해주세요.");
-			String titleSel = "%" + sc.nextLine() + "%";
+			String titleSel = sc.nextLine();
 			
 			BoardVO bv = new BoardVO();
 			bv.setTitle(titleSel);
 			
 			
 			try {
-				List<BoardVO> titleSearch = session.selectList("Board.titleSearch", bv);
+				List<BoardVO> titleSearch = session.selectList("Board.searchBoard", bv);
 				
 				System.out.println();
 				System.out.println("======= 목록 보기 (날짜순 정렬) =======");
@@ -265,7 +265,7 @@ public class BoardMain {
 			
 			
 			try {
-				List<BoardVO> contentSearch = session.selectList("Board.contentSearch", bv);
+				List<BoardVO> contentSearch = session.selectList("Board.searchBoard", bv);
 				
 				System.out.println();
 				System.out.println("======= 목록 보기 (날짜순 정렬) =======");

@@ -41,42 +41,38 @@
 	</select>
 	
 	
+	<!-- 파라미터를 VO로 받기 -->
+	<select id="searchBoard" resultType="vo.BoardVO">
+	
+	SELECT BOARD_NO no, BOARD_DATE "date", BOARD_WRITER writer, BOARD_TITLE title, BOARD_CONTENT content
+	FROM JDBC_BOARD
+	<where>		
+		<if test = ' writer != null and writer != "" '>
+			and BOARD_WRITER LIKE '%' || #{writer} || '%'
+		</if>
+		
+		<if test = ' title != null and title != "" '>
+			and BOARD_TITLE LIKE '%' || #{title} || '%'
+		</if>
+		
+		<if test = ' content != null and content != "" '>
+			and BOARD_CONTENT LIKE '%' || #{content} || '%'
+		</if>
+	</where>
+	
+	</select>
+	
+	
+	<!-- 파라미터를 스트링으로 받기 -->
 	<select id="dateSearch" parameterType="String" resultType="vo.BoardVO">
 		
 	SELECT BOARD_NO no, BOARD_DATE "date", BOARD_WRITER writer, BOARD_TITLE title, BOARD_CONTENT content
 	FROM JDBC_BOARD
-	WHERE BOARD_DATE LIKE TO_DATE(#{date}, 'YYYY-MM-DD')
-	ORDER BY BOARD_DATE
-	
-	</select>
-
-	
-	<select id="writerSearch" parameterType="vo.BoardVO" resultType="vo.BoardVO">
-		
-	SELECT BOARD_NO no, BOARD_DATE "date", BOARD_WRITER writer, BOARD_TITLE title, BOARD_CONTENT content
-	FROM JDBC_BOARD
-	WHERE BOARD_WRITER LIKE #{writer}
-	ORDER BY BOARD_DATE
-	
-	</select>
-	
-	
-	<select id="titleSearch" parameterType="vo.BoardVO" resultType="vo.BoardVO">
-		
-	SELECT BOARD_NO no, BOARD_DATE "date", BOARD_WRITER writer, BOARD_TITLE title, BOARD_CONTENT content
-	FROM JDBC_BOARD
-	WHERE BOARD_TITLE LIKE #{title}
-	ORDER BY BOARD_DATE
-	
-	</select>
-	
-	
-	<select id="contentSearch" parameterType="vo.BoardVO" resultType="vo.BoardVO">
-		
-	SELECT BOARD_NO no, BOARD_DATE "date", BOARD_WRITER writer, BOARD_TITLE title, BOARD_CONTENT content
-	FROM JDBC_BOARD
-	WHERE BOARD_CONTENT LIKE #{content}
-	ORDER BY BOARD_DATE
+	<where>
+		<if test = ' value != null and value != "" '>
+			and BOARD_DATE LIKE TO_DATE(#{date}, 'YYYY-MM-DD')
+		</if>
+	</where>
 	
 	</select>
 
